@@ -1,5 +1,5 @@
 from flask import *;
-from prediction import prediction;
+from preprocess import prediction;
 app = Flask(__name__)
 
 ###############################################################################
