@@ -1,3 +1,4 @@
+
 import re
 import time
 import pandas as pd
@@ -206,24 +207,24 @@ def combine_classes(y_pred1, y_pred2, y_pred3, y_pred4):
 #                           MODEL PREDICTIONS                                 #
 ###############################################################################
 
-import pickle
-
+import joblib
+import os
 def predict_e(s):
 
     X = prep_data(s)
     
     # loading the 4 models
-    EorI_model = pickle.load(open('model1.pkl','rb'))
-    SorN_model = pickle.load(open('model2.pkl','rb'))
-    TorF_model = pickle.load(open('model3.pkl','rb'))
-    JorP_model = pickle.load(open('model4.pkl','rb'))
+    EorI_model = joblib.load( "clf_is_Extrovert.joblib")
+    SorN_model = joblib.load( "clf_is_Sensing.joblib")
+    TorF_model = joblib.load( "clf_is_Thinking.joblib")
+    JorP_model = joblib.load( "clf_is_Judging.joblib")
 
 
     # predicting
-    EorI_pred = EorI_model.best_estimator_.predict(X)
-    SorN_pred = SorN_model.best_estimator_.predict(X)
-    TorF_pred = TorF_model.best_estimator_.predict(X)
-    JorP_pred = JorP_model.best_estimator_.predict(X)
+    EorI_pred = EorI_model.predict(X)
+    SorN_pred = SorN_model.predict(X)
+    TorF_pred = TorF_model.predict(X)
+    JorP_pred = JorP_model.predict(X)
 
     # combining the predictions from the 4 models
     result = combine_classes(EorI_pred, SorN_pred, TorF_pred, JorP_pred)
@@ -231,8 +232,6 @@ def predict_e(s):
     return result
 
 if __name__ == "__main__":
-    t = time.time()
     string = "I just wanna to go home!!!!!! :sadpanda: https://www.youtube.com/watch?v=TQP20LTI84A"
-    print(string)
     print(predict_e(string))
 

@@ -1,5 +1,5 @@
 from flask import *;
-from preprocess import prediction;
+from preprocess import predict_e;
 app = Flask(__name__)
 
 ###############################################################################
@@ -19,7 +19,7 @@ def response():
         snippet = request.form["fsnippet"]
         # Testing with predict.py
         print(snippet)
-        personality_type = prediction(snippet)
+        personality_type = predict_e(snippet)
     return render_template("response.html", name=personality_type, string=snippet)
 
 '''
